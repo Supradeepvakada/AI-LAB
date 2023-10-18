@@ -1,0 +1,176 @@
+import java.util.*;
+import java.text.SimpleDateFormat;
+
+class User {
+    private String name;
+    private String mobileNumber;
+    private String email;
+    private String aadharCard;
+    private String dateOfBirth;
+    private String password;
+    private String residentialAddress;
+    private String permanentAddress;
+    private String occupationalDetails;
+    private String accountNumber;
+    private double balance;
+    private List<Transaction> transactions;
+
+    public User(String name, String mobileNumber, String email, String aadharCard, String dateOfBirth, String password,
+                String residentialAddress, String permanentAddress, String occupationalDetails) {
+        this.name = name;
+        this.mobileNumber = mobileNumber;
+        this.email = email;
+        this.aadharCard = aadharCard;
+        this.dateOfBirth = dateOfBirth;
+        this.password = password;
+        this.residentialAddress = residentialAddress;
+        this.permanentAddress = permanentAddress;
+        this.occupationalDetails = occupationalDetails;
+        this.accountNumber = "ACC" + generateAccountNumber(); // Generate a unique account number
+        this.balance = 0;
+        this.transactions = new ArrayList<>();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getAadharCard() {
+        return aadharCard;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public String getResidentialAddress() {
+        return residentialAddress;
+    }
+
+    public String getPermanentAddress() {
+        return permanentAddress;
+    }
+
+    public String getOccupationalDetails() {
+        return occupationalDetails;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String newPassword) {
+        this.password = newPassword;
+    }
+
+    public void deposit(double amount) {
+        if (amount > 0) {
+            this.balance += amount;
+            transactions.add(new Transaction("Deposit", amount));
+        }
+    }
+
+    public void withdraw(double amount) {
+        if (amount > 0 && amount <= balance) {
+            this.balance -= amount;
+            transactions.add(new Transaction("Withdrawal", -amount));
+        }
+    }
+
+    private static int generateAccountNumber() {
+        return new Random().nextInt(9000) + 1000;
+    }
+}
+
+class Transaction {
+    private String type;
+    private double amount;
+    private String timestamp;
+
+    public Transaction(String type, double amount) {
+        this.type = type;
+        this.amount = amount;
+        this.timestamp = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+}
+
+public class BankApplication {
+    private static List<User> users = new ArrayList<>();
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    private static SimpleDateFormat timestampFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int choice;
+
+        while (true) {
+            System.out.println("Bank Application");
+            System.out.println("1. Register User");
+            System.out.println("2. Login");
+            System.out.println("3. Exit");
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    registerUser(scanner);
+                    break;
+                case 2:
+                    login(scanner);
+                    break;
+                case 3:
+                    System.out.println("Exiting the application. Goodbye!");
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+
+    private static void registerUser(Scanner scanner) {
+        // Implement user registration here
+        // Collect user details and create a new User object, then add it to the 'users' list.
+    }
+
+    private static void login(Scanner scanner) {
+        // Implement user login here
+        // Check if the provided mobile number and password match a user in the 'users' list.
+        // If successful, allow access to the user's account and its associated features.
+    }
+
+    // You can add methods for other features such as deposit, withdrawal, account summary, etc.
+
+    // ...
+}
